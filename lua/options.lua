@@ -8,6 +8,14 @@ vim.opt.clipboard = 'unnamedplus' -- include system clipboard
 vim.opt.undofile = true
 vim.opt.timeoutlen = 300
 
+-- Terminal
+vim.o.shell = "pwsh"
+vim.o.shellcmdflag = "-NoProfile -NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.UTF8Encoding]::new();$PSDefaultParameterValues['Out-File:Encoding']='utf8';$PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::PlainText;"
+vim.o.shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+vim.o.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+vim.o.shellquote = ""
+vim.o.shellxquote = ""
+
 -- UI
 vim.opt.number = true -- line numbers
 vim.opt.relativenumber = true
@@ -33,4 +41,11 @@ vim.opt.linebreak = true
 vim.opt.breakindent = true
 vim.opt.smartindent = true -- autoindent new lines
 
-
+-- Highlight when yanking (copying) text
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})

@@ -78,6 +78,11 @@ return {
 			"gopls",
 			"pyright",
 			"tsserver",
+			"cssls",
+			"html",
+			"svelte",
+			"pylsp",
+			"tailwindcss",
 
 			-- formatters
 			"stylua",
@@ -89,16 +94,16 @@ return {
 				settings = {
 					Lua = {
 						diagnostics = {
-							globals = { 'vim' },
+							globals = { "vim" },
 						},
 						workspace = {
 							library = {
 								[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-								[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true, 
-							}
+								[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+							},
 						},
 						completion = {
-							 callSnippet = "Replace",
+							callSnippet = "Replace",
 						},
 						-- diagnostics = { disable = { 'missing-fields' } },
 					},
@@ -115,6 +120,7 @@ return {
 				-- handles servers with unique configs
 				function(server_name)
 					local server = servers[server_name] or {}
+					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 					require("lspconfig")[server_name].setup(server)
 				end,
 			},

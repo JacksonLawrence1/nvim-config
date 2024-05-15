@@ -13,6 +13,17 @@ return {
 				},
 			},
 		},
+		{
+			-- provides html/css completion
+			"Jezda1337/nvim-html-css",
+			dependencies = {
+				"nvim-treesitter/nvim-treesitter",
+				"nvim-lua/plenary.nvim",
+			},
+			config = function()
+				require("html-css"):setup()
+			end,
+		},
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-nvim-lua",
@@ -68,6 +79,8 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
+				{ name = "buffer" },
+				{ name = "html-css" },
 			},
 		})
 	end,
