@@ -11,7 +11,7 @@ return {
 	},
 	config = function()
 		vim.api.nvim_create_autocmd("LspAttach", {
-			group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
+			group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 			callback = function(event)
 				local map = function(keys, func, desc)
 					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
@@ -78,11 +78,11 @@ return {
 			"gopls",
 			"pyright",
 			"tsserver",
-			"cssls",
 			"html",
 			"svelte",
 			"pylsp",
 			"tailwindcss",
+			"cssls",
 
 			-- formatters
 			"stylua",
@@ -105,10 +105,23 @@ return {
 						completion = {
 							callSnippet = "Replace",
 						},
-						-- diagnostics = { disable = { 'missing-fields' } },
 					},
 				},
 			},
+			-- cssls = {
+			-- 	settings = {
+			-- 		css = {
+			-- 			validate = true,
+			-- 			line = { unknownAtRules = "ignore" },
+			-- 		},
+			-- 		scss = {
+			-- 			validate = true,
+			-- 		},
+			-- 		less = {
+			-- 			validate = true,
+			-- 		},
+			-- 	}
+			-- }
 		}
 
 		vim.list_extend(ensure_installed, vim.tbl_keys(servers)) -- appends only the server names

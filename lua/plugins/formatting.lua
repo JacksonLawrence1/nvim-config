@@ -1,8 +1,12 @@
 return {
 	"stevearc/conform.nvim",
+	dependencies = {
+		"tpope/vim-sleuth",
+	},
 	event = { "BufReadPre", "BufNewFile" },
 	config = function()
 		local conform = require("conform")
+		local firstFormat = true
 
 		conform.setup({
 			formatters_by_ft = {
@@ -28,7 +32,18 @@ return {
 				lsp_fallback = true,
 				async = false,
 				timeout_ms = 500,
-			})
+			}, function()
+				if firstFormat then
+					vim.cmd("silent Sleuth")
+					firstFormat = false
+				end
+			end)
 		end, { desc = "[F]ormat file" })
+
+		vim.api.nvim_create_autocmd("BufLeave", {
+			callback = function()
+				firstFormat = true
+			end,
+		})
 	end,
 }

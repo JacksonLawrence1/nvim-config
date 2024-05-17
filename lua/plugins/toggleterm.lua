@@ -6,6 +6,7 @@ return {
 			open_mapping = [[<C-\>]],
 			direction = 'float',
 			shell = 'pwsh',
+			autochdir = true,
 		})
 	end,
 }

@@ -40,6 +40,8 @@ vim.opt.tabstop = 4 -- 1 tab = 4 spaces
 vim.opt.linebreak = true
 vim.opt.breakindent = true
 vim.opt.smartindent = true -- autoindent new lines
+vim.opt.autoindent = true -- copy indent from current line when starting a new linear
+vim.opt.shiftround = true -- round indent to multiple of shiftwidth
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {

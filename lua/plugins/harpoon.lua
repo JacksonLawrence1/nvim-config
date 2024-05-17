@@ -1,12 +1,18 @@
 return {
 	"ThePrimeagen/harpoon",
 	branch = "harpoon2",
+	commit = "e76cb03",
 	dependencies = {
 		"nvim-lua/plenary.nvim",
+		"nvim-telescope/telescope.nvim",
 	},
 	config = function()
 		local harpoon = require("harpoon")
-		harpoon:setup()
+		harpoon:setup({
+			settings = {
+				save_on_toggle = true,
+			},
+		})
 
 		-- Keybindings
 		vim.keymap.set("n", "<leader>h", function()

@@ -11,7 +11,6 @@ return {
 			local telescope = require("telescope")
 			local builtin = require("telescope.builtin")
 			local fb_actions = telescope.extensions.file_browser.actions
-			local projects = telescope.load_extension("projects")
 
 			local function openInNewFolder(prompt_bufnr)
 				fb_actions.change_cwd(prompt_bufnr)
@@ -30,6 +29,9 @@ return {
 							-- in picker window, CTRL-s to open in vertical split
 							["<C-s>"] = "select_vertical",
 						},
+					},
+					path_display = {
+						"tail",
 					},
 				},
 				extensions = {

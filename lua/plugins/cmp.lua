@@ -12,23 +12,18 @@ return {
 					end,
 				},
 			},
-		},
-		{
-			-- provides html/css completion
-			"Jezda1337/nvim-html-css",
-			dependencies = {
-				"nvim-treesitter/nvim-treesitter",
-				"nvim-lua/plenary.nvim",
-			},
-			config = function()
-				require("html-css"):setup()
-			end,
+			build = (function()
+				if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+					return
+				end
+				return "make install_jsregexp"
+			end)(),
 		},
 		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-nvim-lua",
 		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-buffer",
+		-- "hrsh7th/cmp-buffer",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -49,8 +44,8 @@ return {
 					luasnip.lsp_expand(args.body)
 				end,
 			},
-			completion = { completeopt = "menu, menuone, noinsert" },
-
+			completion = { completeopt = "menu, noinsert" },
+			formatting = require("internals.cmp-menu-formatting"),
 			mapping = cmp.mapping.preset.insert({
 				["<C-n>"] = cmp.mapping.select_next_item(),
 				["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -79,8 +74,18 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
-				{ name = "buffer" },
-				{ name = "html-css" },
+				{
+					name = "html-css",
+					option = {
+						enable_on = {
+							"html",
+							"css",
+							"typescript",
+						},
+						file_extensions = { "css", "sass", "less" },
+						style_sheets = {},
+					},
+				},
 			},
 		})
 	end,
