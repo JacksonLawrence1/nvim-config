@@ -50,9 +50,9 @@ return {
 		-- Central buttons
 		dashboard.section.buttons.val = {
 			newButton("e", icons.new_file .. "   New file", ":ene <BAR> startinsert <CR>"),
-			newButton("p", icons.folder .. "   Find Project", ":Telescope projects<CR>"),
-			newButton("f", icons.file .. "   Find file", ":cd " .. path ..  " | Telescope find_files<CR>"),
+			newButton("p", icons.folder .. "   Projects", ":Telescope projects<CR>"),
 			newButton("r", icons.back_in_time .. "   Recent", ":Telescope oldfiles<CR>"),
+			newButton("f", icons.file .. "   Files", ":cd " .. path ..  " | Telescope find_files<CR>"),
 			newButton(
 				"s",
 				icons.cog .. "   Settings",

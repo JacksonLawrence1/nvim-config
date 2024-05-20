@@ -82,7 +82,6 @@ return {
 			"svelte",
 			"pylsp",
 			"tailwindcss",
-			"cssls",
 
 			-- formatters
 			"stylua",
@@ -108,20 +107,20 @@ return {
 					},
 				},
 			},
-			-- cssls = {
-			-- 	settings = {
-			-- 		css = {
-			-- 			validate = true,
-			-- 			line = { unknownAtRules = "ignore" },
-			-- 		},
-			-- 		scss = {
-			-- 			validate = true,
-			-- 		},
-			-- 		less = {
-			-- 			validate = true,
-			-- 		},
-			-- 	}
-			-- }
+			cssls = {
+				settings = {
+					css = {
+						validate = true,
+						lint = { unknownAtRules = "ignore" },
+					},
+					scss = {
+						validate = true,
+					},
+					less = {
+						validate = true,
+					},
+				}
+			}
 		}
 
 		vim.list_extend(ensure_installed, vim.tbl_keys(servers)) -- appends only the server names

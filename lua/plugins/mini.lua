@@ -8,8 +8,8 @@ return {
         -- Provide clues for keybinds
         require("mini.clue").setup()
 
-        -- comments using gc
-        require("mini.comment").setup()
+        -- no longer needed since neovim 10.0.0
+        -- require("mini.comment").setup()
 
         -- jump to next/previous single character
         require("mini.jump").setup()
