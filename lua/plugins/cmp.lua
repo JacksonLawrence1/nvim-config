@@ -36,6 +36,9 @@ return {
 		vim.fn.sign_define("DiagnosticSignHint", { text = icons.diag_info, texthl = "Hint" })
 		vim.fn.sign_define("DiagnosticSignHint", { text = icons.diag_hint, texthl = "Info" })
 
+		vim.fn.sign_define("TODO", { text = " ", texthl = "Todo"})
+		vim.fn.sign_define("PERF", { text = " ", texthl = "Performance"})
+
 		luasnip.config.setup({})
 
 		cmp.setup({
