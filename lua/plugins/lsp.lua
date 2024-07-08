@@ -66,6 +66,9 @@ return {
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 					end, "[T]oggle Inlay [H]ints")
 				end
+
+				-- Organize Imports for TypeScript
+				vim.keymap.set("n", "<leader>oi", "<cmd>OrganizeImports<CR>", { buffer = event.buf, desc = "[O]rganize [I]mports"})
 			end,
 		})
 
@@ -104,6 +107,17 @@ return {
 						completion = {
 							callSnippet = "Replace",
 						},
+					},
+				},
+			},
+			tsserver = {
+				commands = {
+					OrganizeImports = {
+						function()
+							local params = { command = "_typescript.organizeImports", arguments = { vim.api.nvim_buf_get_name(0) } }
+							vim.lsp.buf.execute_command(params)
+						end,
+						description = "Organize Imports",
 					},
 				},
 			},
