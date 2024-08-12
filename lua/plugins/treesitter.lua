@@ -2,11 +2,10 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	build = ":TSUpdate",
 	opts = {
-		ensure_installed = { "lua", "vim", "vimdoc", "javascript", "typescript" },
+		ensure_installed = { "lua", "vim", "vimdoc", "javascript", "typescript", "svelte" },
 		auto_install = true,
 		highlight = { enable = true },
 		indent = { enable = true },
-		autotag = { enable = true },
 	},
 
 	config = function(_, opts)
