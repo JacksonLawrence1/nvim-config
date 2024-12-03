@@ -31,7 +31,7 @@ return {
 			conform.format({
 				lsp_fallback = true,
 				async = false,
-				timeout_ms = 1000,
+				timeout_ms = 5000,
 			}, function()
 				if firstFormat then
 					vim.cmd("silent Sleuth")

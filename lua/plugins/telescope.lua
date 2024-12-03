@@ -24,6 +24,9 @@ return {
 
 			require("telescope").setup({
 				defaults = {
+					file_ignore_patterns = {
+						"node_moduls",
+					},
 					mappings = {
 						i = {
 							-- in picker window, CTRL-s to open in vertical split

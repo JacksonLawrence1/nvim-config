@@ -63,12 +63,17 @@ return {
 				-- Enable inlay hints if the server supports it
 				if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
 					map("<leader>th", function()
-						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
 					end, "[T]oggle Inlay [H]ints")
 				end
 
 				-- Organize Imports for TypeScript
-				vim.keymap.set("n", "<leader>oi", "<cmd>OrganizeImports<CR>", { buffer = event.buf, desc = "[O]rganize [I]mports"})
+				vim.keymap.set(
+					"n",
+					"<leader>oi",
+					"<cmd>OrganizeImports<CR>",
+					{ buffer = event.buf, desc = "[O]rganize [I]mports" }
+				)
 			end,
 		})
 
@@ -78,13 +83,10 @@ return {
 		-- install most of these manually using :Mason
 		local ensure_installed = {
 			-- servers without extra configs
-			"gopls",
-			"pyright",
-			"tsserver",
 			"html",
-			"svelte",
-			"pylsp",
-			"tailwindcss",
+			"lua_ls",
+			"ts_ls",
+			"cssls",
 
 			-- formatters
 			"stylua",
@@ -110,11 +112,30 @@ return {
 					},
 				},
 			},
-			tsserver = {
+			tailwindcss = {
+				filetypes = {
+					"html",
+					"css",
+					"less",
+					"postcss",
+					"pcss",
+					"sass",
+					"scss",
+					"javascript",
+					"javascriptreact",
+					"typescript",
+					"typescriptreact",
+					"svelte",
+				},
+			},
+			ts_ls = {
 				commands = {
 					OrganizeImports = {
 						function()
-							local params = { command = "_typescript.organizeImports", arguments = { vim.api.nvim_buf_get_name(0) } }
+							local params = {
+								command = "_typescript.organizeImports",
+								arguments = { vim.api.nvim_buf_get_name(0) },
+							}
 							vim.lsp.buf.execute_command(params)
 						end,
 						description = "Organize Imports",
@@ -133,8 +154,8 @@ return {
 					less = {
 						validate = true,
 					},
-				}
-			}
+				},
+			},
 		}
 
 		vim.list_extend(ensure_installed, vim.tbl_keys(servers)) -- appends only the server names
