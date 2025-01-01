@@ -29,6 +29,8 @@ return {
 			typescriptreact = { "console.log(", ");" },
 			rust = { 'println!("', '");' },
 			go = { "fmt.Println(", ")" },
+			java = { 'System.out.println("', '");' },
+			cs = { 'Console.WriteLine("', '");' },
 		}
 
 
