@@ -36,9 +36,9 @@ return {
 					ignored = icons.ignored,
 					unstaged = icons.enum,
 					staged = icons.git_staged,
-					conflict = icons.interface
-				}
-			}
+					conflict = icons.interface,
+				},
+			},
 		})
 
 		-- neo-tree keybinds

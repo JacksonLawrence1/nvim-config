@@ -2,10 +2,10 @@
 vim.keymap.set("n", "<C-s>", vim.cmd.up, { desc = "Save" })
 
 -- Window navigation
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+vim.keymap.set({"n", "t"}, "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+vim.keymap.set({"n", "t"}, "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+vim.keymap.set({"n", "t"}, "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+vim.keymap.set({"n", "t"}, "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Move visual selection up and down
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
@@ -30,3 +30,18 @@ vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagn
 vim.keymap.set("n", "<leader>se", vim.diagnostic.open_float, { desc = "[S]how diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
+-- Copy whole file without losing cursor position
+vim.keymap.set("n", "<leader>yf", "m`ggyG``", { desc = "[Y]ank [F]ile" })
+
+-- Replace whole file with clipboard, without replacing the clipboard 
+vim.keymap.set("n", "<leader>rf", "gg\"_dGP", { desc = "[R]eplace [F]ile with clipboard" })
+
+
+-- Toggle case of entire word
+vim.keymap.set("n", "<leader>cc", "m`g~iw``", { desc = "[C]hange [C]ase" })
+
+-- Toggle case of entire word
+vim.keymap.set("n", "<leader>cw", "m`gUiw``", { desc = "[C]apitalize [W]ord" })
+
+-- Capitalize first letter of word
+vim.keymap.set("n", "<leader>cf", "m`lb~``", { desc = "[C]apitalize [F]irst letter of word" })
