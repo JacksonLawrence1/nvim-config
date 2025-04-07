@@ -36,8 +36,8 @@ return {
 		vim.fn.sign_define("DiagnosticSignHint", { text = icons.diag_info, texthl = "Hint" })
 		vim.fn.sign_define("DiagnosticSignHint", { text = icons.diag_hint, texthl = "Info" })
 
-		vim.fn.sign_define("TODO", { text = " ", texthl = "Todo"})
-		vim.fn.sign_define("PERF", { text = " ", texthl = "Performance"})
+		vim.fn.sign_define("TODO", { text = " ", texthl = "Todo" })
+		vim.fn.sign_define("PERF", { text = " ", texthl = "Performance" })
 
 		luasnip.config.setup({})
 
@@ -77,18 +77,6 @@ return {
 				{ name = "nvim_lsp" },
 				{ name = "luasnip" },
 				{ name = "path" },
-				{
-					name = "html-css",
-					option = {
-						enable_on = {
-							"html",
-							"css",
-							"typescript",
-						},
-						file_extensions = { "css", "sass", "less" },
-						style_sheets = {},
-					},
-				},
 			},
 		})
 	end,

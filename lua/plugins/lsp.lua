@@ -1,8 +1,9 @@
 return {
-	"neovim/nvim-lspconfig",
+	"williamboman/mason.nvim",
 	dependencies = {
-		{ "williamboman/mason.nvim", config = true },
 		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+		"hrsh7th/nvim-cmp",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 		-- notificiations and lsp progress messages
@@ -80,18 +81,6 @@ return {
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
-		-- install most of these manually using :Mason
-		local ensure_installed = {
-			-- servers without extra configs
-			"html",
-			"lua_ls",
-			"ts_ls",
-			"cssls",
-
-			-- formatters
-			"stylua",
-		}
-
 		-- servers that require special configuration
 		local servers = {
 			lua_ls = {
@@ -158,19 +147,25 @@ return {
 			},
 		}
 
-		vim.list_extend(ensure_installed, vim.tbl_keys(servers)) -- appends only the server names
+		local ensure_installed = vim.tbl_keys(servers or {})
+		vim.list_extend(ensure_installed, {
+			'stylua'
+		})
 
 		require("mason").setup()
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 		require("mason-lspconfig").setup({
+			ensure_installed = {},
+			automatic_installation = false,
 			handlers = {
-				-- handles servers with unique configs
-				function(server_name)
-					local server = servers[server_name] or {}
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
-			},
+				require("mason-lspconfig").setup_handlers({
+					function(server_name)
+						local server = servers[server_name] or {}
+						server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+						require('lspconfig')[server_name].setup(server)
+					end,
+				})
+			}
 		})
 	end,
 }
