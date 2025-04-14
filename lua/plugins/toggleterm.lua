@@ -2,30 +2,36 @@ return {
 	"akinsho/toggleterm.nvim",
 	version = "*",
 	config = function()
+		local shell = vim.o.shell;
+
+		if vim.fn.has("win32") == 1 then
+			shell = "pwsh"
+		end
+
 		require("toggleterm").setup({
 			open_mapping = [[<C-\>]],
 			terminal_mappings = true,
 			direction = "float",
-			shell = "pwsh",
+			shell = shell,
 			autochdir = true,
 		})
 
 		-- split terminal
-		vim.keymap.set("n", "<leader>tf", ":ToggleTerm direction=horizontal<CR>", { desc = "Open [T]erminal [F]loat" })
+		vim.keymap.set("n", "<leader>ttf", ":ToggleTerm direction=horizontal<CR>", { desc = "[T]oggle [T]erminal [F]loat" })
 
 		-- split terminal
 		vim.keymap.set(
 			"n",
-			"<leader>th",
+			"<leader>tth",
 			":ToggleTerm direction=horizontal<CR>",
-			{ desc = "Open [T]erminal [H]orizontally" }
+			{ desc = "[T]oggle [T]erminal [H]orizontally" }
 		)
 
 		vim.keymap.set(
 			"n",
-			"<leader>tv",
+			"<leader>ttv",
 			":ToggleTerm size=40 direction=vertical<CR>",
-			{ desc = "Open [T]erminal [V]ertically" }
+			{ desc = "[T]oggle [T]erminal [V]ertically" }
 		)
 	end,
 }

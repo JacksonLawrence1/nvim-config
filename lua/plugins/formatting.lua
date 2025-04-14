@@ -1,49 +1,33 @@
 return {
 	"stevearc/conform.nvim",
-	dependencies = {
-		"tpope/vim-sleuth",
-	},
-	event = { "BufReadPre", "BufNewFile" },
-	config = function()
-		local conform = require("conform")
-		local firstFormat = true
-
-		conform.setup({
-			formatters_by_ft = {
-				lua = { "stylua" },
-				javascript = { "prettier" },
-				typescript = { "prettier" },
-				javascriptreact = { "rustywind", "prettier" },
-				typescriptreact = { "rustywind", "prettier" },
-				svelte = { "rustywind", "prettier" },
-				html = { "rustywind", "prettier" },
-				css = { "rustywind", "prettier" },
-				json = { "prettier" },
-				xml = { "prettier" },
-				yaml = { "prettier" },
-				markdown = { "prettier" },
-				python = { "black" },
-				go = { "gofumpt" },
-			},
-		})
-
-		vim.keymap.set("n", "<A-S-f>", function()
-			conform.format({
-				lsp_fallback = true,
-				async = false,
-				timeout_ms = 5000,
-			}, function()
-				if firstFormat then
-					vim.cmd("silent Sleuth")
-					firstFormat = false
-				end
-			end)
-		end, { desc = "[F]ormat file" })
-
-		vim.api.nvim_create_autocmd("BufLeave", {
-			callback = function()
-				firstFormat = true
+	event = { "BufWritePre" },
+	cmd = { "ConformInfo" },
+	keys = {
+		{
+			"<A-S-f>", -- Alt-shift-f
+			function()
+				require("conform").format({ async = true, lsp_format = "fallback" })
 			end,
-		})
-	end,
+			mode = "",
+			desc = "[F]ormat buffer",
+		},
+	},
+	opts = {
+		notify_on_error = false,
+		formatters_by_ft = {
+			lua = { "stylua" },
+			html = { "prettierd", "rustywind" },
+			css = { "prettier", "rustywind"},
+			typescript = { "prettierd", "rustywind" },
+			javascript = { "prettierd", "rustywind" },
+			javascriptreact = { "prettierd", "rustywind" },
+			typescriptreact = { "prettierd", "rustywind" },
+			svelte = { "prettierd", "rustywind" },
+			json = { "prettierd" },
+			xml = { "prettierd" },
+			yaml = { "prettierd" },
+			markdown = { "prettierd" },
+			python = { "black" },
+		},
+	},
 }

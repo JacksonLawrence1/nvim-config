@@ -5,7 +5,7 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"MunifTanjim/nui.nvim",
-		"3rd/image.nvim",
+		"3rd/image.nvim", -- image support for preview window
 	},
 	config = function()
 		local icons = require("internals.icons")
@@ -26,22 +26,31 @@ return {
 					end,
 				},
 			},
-			git_status = {
-				symbols = {
-					added = icons.git_added,
-					modified = icons.pencil,
-					deleted = icons.x,
-					renamed = icons.string,
-					untracked = icons.git_untracked,
-					ignored = icons.ignored,
-					unstaged = icons.enum,
-					staged = icons.git_staged,
-					conflict = icons.interface,
+			default_component_configs = {
+				git_status = {
+					symbols = {
+						added = icons.git_added,
+						modified = icons.pencil,
+						deleted = icons.git_deleted,
+						renamed = icons.string,
+						untracked = icons.git_untracked,
+						ignored = icons.ignored,
+						unstaged = icons.enum,
+						staged = icons.git_staged,
+						conflict = icons.interface,
+					},
 				},
-			},
+			}
 		})
 
-		-- neo-tree keybinds
-		vim.keymap.set("n", "<leader>e", ":Neotree filesystem reveal left toggle<CR>", { desc = "Open [E]xplorer" })
+		-- Open Neo-tree on the left
+		vim.keymap.set("n", "<leader>e", function()
+			require("neo-tree.command").execute({
+				toggle = true,
+				reveal= true,
+				position = "left",
+				source = "filesystem"
+			})
+		end, { desc = "Open Neo-tree" })
 	end,
 }

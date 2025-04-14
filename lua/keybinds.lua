@@ -24,24 +24,20 @@ vim.keymap.set("v", "p", "\"_dP", { desc = "Paste over visual selection" })
 -- default behaviour by pressing <leader>p
 vim.keymap.set("v", "<leader>p", "p", { desc = "Default paste over visual selection" })
 
+
 -- Going through Error Diagnostics
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>se", vim.diagnostic.open_float, { desc = "[S]how diagnostic [E]rror messages" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>se", vim.diagnostic.open_float, { desc = "[S]how [E]rror" })
+vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open [Q]uickfixes" })
 
 -- Copy whole file without losing cursor position
 vim.keymap.set("n", "<leader>yf", "m`ggyG``", { desc = "[Y]ank [F]ile" })
 
 -- Replace whole file with clipboard, without replacing the clipboard 
-vim.keymap.set("n", "<leader>rf", "gg\"_dGP", { desc = "[R]eplace [F]ile with clipboard" })
+vim.keymap.set("n", "<leader>Rf", "gg\"_dGP", { desc = "[R]eplace [F]ile with clipboard" })
 
 
 -- Toggle case of entire word
 vim.keymap.set("n", "<leader>cc", "m`g~iw``", { desc = "[C]hange [C]ase" })
-
--- Toggle case of entire word
-vim.keymap.set("n", "<leader>cw", "m`gUiw``", { desc = "[C]apitalize [W]ord" })
 
 -- Capitalize first letter of word
 vim.keymap.set("n", "<leader>cf", "m`lb~``", { desc = "[C]apitalize [F]irst letter of word" })

@@ -7,6 +7,8 @@ return {
 
 		vim.api.nvim_set_hl(0, "Matrix", { fg = "#00ff2b" })
 
+		-- TODO: change this
+
 		local logo = {
 			"              ██████            ████                ",
 			"              ████████████████████████              ",
@@ -44,15 +46,24 @@ return {
 			return "v" .. tostring(v.major) .. "." .. tostring(v.minor) .. "." .. tostring(v.patch)
 		end
 
-		-- path to where you have projects
-		local path = "E:/zekro/Documents/Codes/Projects"
+
+		local function createFindFilesButton()
+			-- where to index files
+			local ok, filepaths = pcall(require, 'internals.filepaths')
+
+			if not ok or not filepaths.search then
+				vim.notify("Warning: Missing `filepaths.search` property in `internals/filepaths.lua`", vim.log.levels.WARN)
+				return
+			end
+			return newButton("f", icons.file .. "   Files", ":cd " .. filepaths.search ..  " | Telescope find_files<CR>")
+		end
 
 		-- Central buttons
 		dashboard.section.buttons.val = {
 			newButton("e", icons.new_file .. "   New file", ":ene <BAR> startinsert <CR>"),
 			newButton("p", icons.folder .. "   Projects", ":Telescope projects<CR>"),
 			newButton("r", icons.back_in_time .. "   Recent", ":Telescope oldfiles<CR>"),
-			newButton("f", icons.file .. "   Files", ":cd " .. path ..  " | Telescope find_files<CR>"),
+			createFindFilesButton(),
 			newButton(
 				"s",
 				icons.cog .. "   Settings",

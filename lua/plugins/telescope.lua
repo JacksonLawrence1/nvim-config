@@ -27,12 +27,6 @@ return {
 					file_ignore_patterns = {
 						"node_moduls",
 					},
-					mappings = {
-						i = {
-							-- in picker window, CTRL-s to open in vertical split
-							["<C-s>"] = "select_vertical",
-						},
-					},
 					path_display = {
 						"tail",
 					},
