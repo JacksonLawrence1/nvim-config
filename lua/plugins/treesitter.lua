@@ -5,7 +5,7 @@ return {
 		ensure_installed = { "lua", "vim", "vimdoc", "python", "javascript", "typescript", "css", "html", "json", "svelte", "markdown" },
 		auto_install = true,
 		highlight = { enable = true },
-		indent = { enable = true },
+		indent = { enable = false },
 	},
 
 	config = function(_, opts)
@@ -14,3 +14,4 @@ return {
 		require("nvim-treesitter.configs").setup(opts)
 	end,
 }
+

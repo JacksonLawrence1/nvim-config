@@ -41,3 +41,22 @@ vim.keymap.set("n", "<leader>cc", "m`g~iw``", { desc = "[C]hange [C]ase" })
 
 -- Capitalize first letter of word
 vim.keymap.set("n", "<leader>cf", "m`lb~``", { desc = "[C]apitalize [F]irst letter of word" })
+
+
+-- use "cc" when entering a line with no whitespace
+-- https://github.com/nvim-lua/kickstart.nvim/issues/1365
+local function AutoIndentLine(key)
+    local current_line = vim.api.nvim_get_current_line()
+    -- %g all printable characters except whitespace
+    if string.len(current_line) == 0 or string.match(current_line, '%g') == nil then
+        return [["_cc]]
+    else
+        return key
+    end
+end
+
+-- Re-entering line auto-indents for these keys
+local autoIndentKeys = { 'a', 'A', 'i', 'I'}
+for _, key in ipairs(autoIndentKeys) do
+    vim.keymap.set('n', key, function() return AutoIndentLine(key) end, { noremap = true, expr = true })
+end

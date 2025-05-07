@@ -19,31 +19,36 @@ return {
 		-- Load global lsp config (diagnostics, keybinds)
 		cfg("global")
 
-		-- Load any custom configs we have
-		-- NOTE: server name must be valid in :Mason and have a loaded config file/empty config {}
-		-- Some servers also require package managers
-		-- E.g. go = go, python = pip, js = node
+		-- Load any custom configs in /lsp/ directory
+		-- NOTE: server name must be valid in :Mason 
 		local servers = {
 			lua_ls = cfg("lua"), -- Lua
 			ts_ls = cfg("typescript"), -- Typescript
-			pyright = {},
-			gopls = {},
-			html = {},
-			cssls = {},
-			tailwindcss = {},
-			svelte = {},
 		}
 
 		-- Install necessary tools (formatters + linters)
 		local ensure_installed = vim.tbl_keys(servers)
 
-		-- Include Linters and formatters
+		-- Servers without a custom config
+		-- NOTE: Some servers also require package managers
+		-- E.g. go = go, python = pip, js = node
 		vim.list_extend(ensure_installed, {
+			-- LSPs
+			"pyright",
+			"gopls",
+			"html",
+			"cssls",
+			"tailwindcss",
+			"svelte",
+
+			-- Formatters
 			"stylua",
-			"black", -- python
-			"eslint_d",
+			"black", -- for python
 			"prettierd", -- faster than prettier
-			"rustywind", -- for ordering tailwind classes
+			"rustywind", -- ordering tailwind classes
+
+			-- Linters
+			"eslint_d",
 		})
 
 		-- Install required dependencies

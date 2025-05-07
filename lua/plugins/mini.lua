@@ -17,6 +17,11 @@ return {
 			surround = {},
 		}
 
+		-- class="asdasd"
+		-- className="asdasd"
+		-- class='asdasd'
+		-- className='asdasd'
+
 		for k, v in pairs(modules) do
 			local module = "mini." .. k
 			require(module).setup(v)
